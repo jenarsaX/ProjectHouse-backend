@@ -7,59 +7,70 @@ use Illuminate\Http\Request;
 
 class TenantController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $tenant = Tenant::all();
+
+        return response()->json([
+            'success' => true,
+            'data' => $tenant
+        ],200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $tenant = Tenant::create([
+            'name' => $request->input('name'),
+            'dni' => $request->input('dni'),
+            'telefono' => $request->input('telefono'),
+            'email' => $request->input('email'),
+            'fecha_nacimiento' => $request->input('facha_nacimiento'),
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Actulizado Correctamente',
+            'data' => $tenant
+        ],201);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Tenant $tenant)
+    public function show(string $id)
     {
-        //
+        $tenant = Tenant::find($id);
+
+        return response()->json([
+            'success' => true,
+            'data' => $tenant
+        ],200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Tenant $tenant)
+    public function update(Request $request, string $id)
     {
-        //
+        $tenant = Tenant::find($id);
+        if(!$tenant){
+            return response()->json(['message' => 'No encontrado'],404);
+        }
+        
+        $tenant->name = $request->input('name');
+        $tenant->dni = $request->input('dni');
+        $tenant->telefono = $request->input('telefono');
+        $tenant->email = $request->input('email');
+        $tenant->fecha_nacimiento = $request->input('fecha_nacimiento');
+        $tenant->save();
+
+        return response()->json([
+            'success' => true,
+            'data' => $tenant
+        ],201);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Tenant $tenant)
+    public function destroy(string $id)
     {
-        //
-    }
+        Tenant::find($id)->delete();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Tenant $tenant)
-    {
-        //
+        return response()->json([
+            'success' => true,
+            'message' => 'Eliminado correctamente',
+        ],200);
     }
 }
