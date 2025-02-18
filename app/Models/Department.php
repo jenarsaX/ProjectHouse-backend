@@ -17,5 +17,10 @@ class Department extends Model
         'description',
         'fecha_agregado',
         'pisos',
+        'id_administrador',
     ];
+
+    public function createdBy(){
+        return $this->belongsTo(User::class, 'id_administrador');
+    }
 }

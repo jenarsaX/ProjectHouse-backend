@@ -19,8 +19,10 @@ return new class extends Migration
             $table->string('estatus');
             $table->string('description');
             $table->string('fecha_agregado');
+            $table->unsignedBigInteger('id_administrador')->nullable();
             $table->string('pisos');
             $table->timestamps();
+            $table->foreign('id_administrador')->references('id')->on('users')->onDelete('set null');
         });
     }
 
