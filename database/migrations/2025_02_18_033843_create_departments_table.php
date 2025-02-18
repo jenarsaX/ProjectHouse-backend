@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('departments', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('tamaño');
+            $table->string('precio');
+            $table->string('estatus');
+            $table->string('description');
+            $table->string('fecha_agregado');
+            $table->string('pisos');
             $table->timestamps();
         });
     }
