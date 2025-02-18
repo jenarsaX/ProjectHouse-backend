@@ -18,5 +18,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('user', [AuthController::class, 'user']);
     Route::get('/index', [PagoController::class, 'index']);
     Route::get('/index/{id}', [PagoController::class, 'show']);
+    Route::put('update/{id}', [PagoController::class, 'update']);
+    Route::post('destroy/{id}', [PagoController::class, 'destroy']);
     Route::post('logout', [AuthController::class, 'logout']); 
 });
